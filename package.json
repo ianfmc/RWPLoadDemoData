@@ -12,16 +12,9 @@
   },
   "author": "Ian F. McCallum",
   "license": "ISC",
-  "window": {
-    "show": true,
-    "show_in_taskbar": false, 
-    "transparent": false,
-    "resizable": false,
-    "toolbar": true,
-    "frame": true,
-    "always-on-top": false,
-    "visible-on-all-workspaces": true,
-    "width": 600,
-    "height": 600
+  "window": {},
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "tinyreq": "^3.1.4"
   }
 }

@@ -2,37 +2,50 @@
 <html>
 	<head>
 		<title>Context Menu</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<p>'Right Click' for context menu</p>
 		<script>
-		// Create an empty context menu
-			var menu = new nw.Menu();
+			const nameURL = "http://random-name-generator.info/random/?n=10&g=2&st=2";
+			const tiny = require('tinyreq');
+			const cheerio = require("cheerio");
 
-			// Add some items with label
-			menu.append(new nw.MenuItem({
-				label: 'Item A',
-				click: function(){
-			    	alert('You have clicked at "Item A"');
-			  		}
-				}));
-			menu.append(new nw.MenuItem({ label: 'Item B' }));
-			menu.append(new nw.MenuItem({ type: 'separator' }));
-			menu.append(new nw.MenuItem({ label: 'Item C' }));
+			var getName = function() {
 
-			// Hooks the "contextmenu" event
+				var request = {
+					url: nameURL,
+					method: "GET",
+					data: "",
+					encoding: ""
+				}
+				var nameList = [];
 
-			document.body.addEventListener('contextmenu', function(ev) {
-			
-			  	// Prevent showing default context menu
-				ev.preventDefault();
-			  	// Popup the native context menu at place you click
-			  	menu.popup(ev.x, ev.y);
-			  	return false;
-			}, 
-			false);
+				tiny(nameURL, function(err, body) { 
+						if (err) console.log(err);
+						else {
+							console.log("Connected");
+							let $ = cheerio.load(body); 
+							let	rawNameList = {};
+							rawNameList = $(".nameList").find('li');
+							console.log(rawNameList);
+							console.log("---");
 
+							for(var i=0; i<rawNameList.length; i+=1) {
+								let nextRawName = rawNameList[i].children[0].data.trim();
+								let nextName = { 
+									firstName: "",
+									lastName: "" 
+								};
+								nextName.firstName = nextRawName.slice(0, nextRawName.indexOf(" ")).trim();
+								nextName.lastName = nextRawName.slice(nextRawName.lastIndexOf(" ")+1, nextRawName.length).trim();
+								nameList.push(nextName);
+							}
+							console.log(nameList);
+						};
+					});
+			};
 		</script>
-		<h1>New App!</h1>
+		How Many Teams?<br><input type="text" name="number">
+		<input type="submit" value="Get Names" onclick="getName()">
 	</body>
 </html>
