@@ -1,0 +1,27 @@
+{
+  "name": "loaddemodata",
+  "version": "1.0.0",
+  "description": "Load Rewind Polo Demo Data (via Lambda Functions)",
+  "main": "index.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/ianfmc/LoadDemoData"
+  },
+  "author": "Ian F. McCallum",
+  "license": "ISC",
+  "window": {
+    "show": true,
+    "show_in_taskbar": false, 
+    "transparent": false,
+    "resizable": false,
+    "toolbar": true,
+    "frame": true,
+    "always-on-top": false,
+    "visible-on-all-workspaces": true,
+    "width": 600,
+    "height": 600
+  }
+}
